@@ -2,7 +2,6 @@ data_raw
 models
 myenv
 reports
-notebooks/1_Preprocessing_and_EDA.ipynb
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
