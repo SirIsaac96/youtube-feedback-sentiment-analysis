@@ -82,7 +82,7 @@ data = data[~(data['clean_text'].str.strip() == '')]
 
 # Step 2: Feature extraction using Bag of Words
 vectorizer = CountVectorizer(max_features = 10000) # Limit to top 10,000 features
-x = vectorizer.fit_transform(data['clean_text']).toarray()
+x = vectorizer.fit_transform(data['clean_text'])
 y = data['sentiment']
 
 
