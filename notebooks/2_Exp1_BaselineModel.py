@@ -15,11 +15,15 @@ from nltk.stem import WordNetLemmatizer
 import emoji
 import mlflow
 import mlflow.sklearn
+import dagshub
 
 
 # MLFlow setup
-mlflow.set_experiment('Exp 1 - Baseline Moldel (Random Forest)')
+dagshub.init(repo_owner='SirIsaac96', repo_name='youtube-feedback-sentiment-analysis', mlflow=True)
 mlflow.set_tracking_uri('https://dagshub.com/SirIsaac96/youtube-feedback-sentiment-analysis.mlflow')
+mlflow.set_experiment('Exp 1 - Baseline Moldel (Random Forest)')
+# mlflow.set_tracking_uri('http://127.0.0.1:5000')
+
 
 # Step 1: Load and preprocess the data
 data = pd.read_csv('data_raw/youtube_sentiments.csv')
@@ -125,7 +129,7 @@ with mlflow.start_run() as run:
     mlflow.log_metric('accuracy', acc)
 
     # Classification report
-    class_report = classification_report(y_test, y_pred)
+    class_report = classification_report(y_test, y_pred, zero_division = 0, output_dict = True)
     for label, metrics in class_report.items():
         if isinstance(metrics, dict):
             for metric, value in metrics.items():
