@@ -156,4 +156,4 @@ with mlflow.start_run() as run:
         pass
 
 
-print('Training complete. Logged to Dagshub MLFlow successfully.')
+print('Training complete. Logged to MLFlow successfully.')
