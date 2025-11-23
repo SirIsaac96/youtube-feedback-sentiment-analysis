@@ -106,7 +106,7 @@ with mlflow.start_run() as run:
     mlflow.log_param('vectorizer_max_features', vectorizer.max_features)
 
     # Log Random Forest parameters
-    n_estimators = 500
+    n_estimators = 200
     max_depth = 15
 
     # Log parameters
