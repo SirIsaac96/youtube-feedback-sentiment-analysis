@@ -97,12 +97,10 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.2, rando
 # Step 4: Model training with Random Forest
 with mlflow.start_run() as run:
     # Log a description for the run
-    mlflow.set_tag('mlflow.runName', 'RandomForest_Baseline_TrainTestSplit')
-    mlflow.set_tag('experiment_type', 'Baseline_Model')
-    mlflow.set_tag('model_type', 'RandomForestClassifier')
-
-    # Add a description
-    mlflow.set_tag('description', 'Baseline Random Forest model for feedback sentiment analysis using Bag of Words features with a simple train-test split')
+    mlflow.set_tag('author', 'Isaac-Otom')
+    mlflow.set_tag("model", "Exp1_Baseline")
+    mlflow.set_tag('model_type', 'Random_Forest')
+    mlflow.set_tag('description', 'Baseline Random Forest model for feedback sentiment analysis using Bag of Words features')
 
     # Log parameters for the vectorizer
     mlflow.log_param('vectorizer_type', 'CountVectorizer')
@@ -130,10 +128,10 @@ with mlflow.start_run() as run:
 
     # Classification report
     class_report = classification_report(y_test, y_pred, zero_division = 0, output_dict = True)
-    for label, metrics in class_report.items():
+    for cls, metrics in class_report.items():
         if isinstance(metrics, dict):
             for metric, value in metrics.items():
-                mlflow.log_metric(f"{label}_{metric}", value)
+                mlflow.log_metric(f"{cls}_{metric}", value)
     
     # Confusion matrix
     conf_matrix = confusion_matrix(y_test, y_pred)
@@ -147,8 +145,15 @@ with mlflow.start_run() as run:
     plt.savefig('conf_matrix_exp1.png')
     mlflow.log_artifact('conf_matrix_exp1.png')
 
-    # Log the trained model
-    mlflow.sklearn.log_model(model, 'random_forest_model')
+    # Save and log the trained model
+    mlflow.sklearn.save_model(sk_model = model, path = 'Exp1RandomForestBaseline')
+    mlflow.log_artifacts('Exp1RandomForestBaseline')
+
+    # Log this script (2_Exp1_BaselineModel.py) as an artifact
+    try:
+        mlflow.log_artifact(__file__)
+    except Exception:
+        pass
 
 
-print('Run completed and logged to MLFlow successfully.')
+print('Training complete. Logged to Dagshub MLFlow successfully.')
