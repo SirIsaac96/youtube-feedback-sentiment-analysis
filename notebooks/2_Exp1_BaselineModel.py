@@ -22,7 +22,6 @@ import dagshub
 dagshub.init(repo_owner='SirIsaac96', repo_name='youtube-feedback-sentiment-analysis', mlflow=True)
 mlflow.set_tracking_uri('https://dagshub.com/SirIsaac96/youtube-feedback-sentiment-analysis.mlflow')
 mlflow.set_experiment('Exp 1 - Baseline Moldel (Random Forest)')
-# mlflow.set_tracking_uri('http://127.0.0.1:5000')
 
 
 # Step 1: Load and preprocess the data
