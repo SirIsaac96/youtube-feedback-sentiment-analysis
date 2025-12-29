@@ -174,7 +174,7 @@ def lightgbm_objective(trial):
 # Step 7: Run Optuna study for hyperparameter tuning, log only the best model to MLFlow, and plot the importance of each parameter
 def run_optuna_study():
     study = optuna.create_study(direction = 'maximize')
-    study.optimize(lightgbm_objective, n_trials = 15)
+    study.optimize(lightgbm_objective, n_trials = 10)
 
     # Get the best trial and log the best model to MLFlow
     best_params = study.best_params
