@@ -135,7 +135,7 @@ def log_mlflow_results(model_name, model, x_train, x_test, y_train, y_test, para
                     mlflow.log_metric(f"{cls.replace(' ', '_')}_{metric_name}", metric_value)
 
         # Save and log the model
-        model_path = f'Exp6_{model_name}'
+        model_path = f'Exp6_{model_name}/trial_{trial_number}'
         mlflow.sklearn.save_model(model, model_path)
         mlflow.log_artifacts(model_path)
 
@@ -151,15 +151,15 @@ def lightgbm_objective(trial):
         'metric': 'multi_logloss',
         'boosting_type': 'gbdt',
         'learning_rate': trial.suggest_float('learning_rate', 1e-4, 3e-1, log=True),
-        'num_leaves': trial.suggest_int('num_leaves', 20, 150),
+        'num_leaves': trial.suggest_int('num_leaves', 31, 128),
         'max_depth': trial.suggest_int('max_depth', 5, 30),
-        'min_data_in_leaf': trial.suggest_int('min_data_in_leaf', 10, 100),
+        'min_data_in_leaf': trial.suggest_int('min_data_in_leaf', 5, 40),
         'feature_fraction': trial.suggest_float('feature_fraction', 0.6, 1.0),
         'bagging_fraction': trial.suggest_float('bagging_fraction', 0.6, 1.0),
         'bagging_freq': trial.suggest_int('bagging_freq', 1, 10),
         'lambda_l1': trial.suggest_float('lambda_l1', 0.0, 5.0),
         'lambda_l2': trial.suggest_float('lambda_l2', 0.0, 5.0),
-        'min_split_gain': trial.suggest_float('min_split_gain', 0.0, 1.0)
+        'min_split_gain': trial.suggest_float('min_split_gain', 0.0, 0.2)
     }
 
     # Create the LightGBM model
