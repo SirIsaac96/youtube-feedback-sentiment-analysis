@@ -87,7 +87,7 @@ data = data[~(data['clean_text'].str.strip() == '')]
 ngram_range = (1, 3) # Trigrams
 max_features = 1000
 vectorizer = CountVectorizer(ngram_range=ngram_range, max_features=max_features)
-x_bow = vectorizer.fit_transform(data['clean_text'])
+x_bow = vectorizer.fit_transform(data['clean_text']).astype(np.float32)
 y = data['sentiment']
 
 
