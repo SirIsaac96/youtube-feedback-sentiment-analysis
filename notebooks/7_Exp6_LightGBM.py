@@ -140,7 +140,7 @@ def log_mlflow_results(model, x_train, x_test, y_train, y_test, params, trial_nu
         # Log the model
         mlflow.sklearn.log_model(
             model,
-            artifact_path=f"Exp6_Models/trial_{trial_number}"
+            name=f"trial_{trial_number}_model"
         )
 
         return accuracy
@@ -197,7 +197,7 @@ def run_optuna_study():
 
         mlflow.sklearn.log_model(
             best_model,
-            artifact_path="Exp6_Models/best_model"
+            name="best_model"
         )
 
         fig = optuna.visualization.plot_param_importances(study)
